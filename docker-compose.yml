@@ -1,0 +1,22 @@
+services:
+    api-bolsa:
+        image: postgres:16
+        container_name: api-bolsa-postgres
+        restart: unless-stopped
+        ports:
+            - "5432:5432"
+        environment:
+            POSTGRES_DB: rendainveste
+            POSTGRES_USER: wesleyvm
+            POSTGRES_PASSWORD: yqtQeuXB0QsKt99RAQ
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        networks:
+            - laravel
+
+volumes:
+    pgdata:
+
+networks:
+    laravel:
+        driver: bridge
