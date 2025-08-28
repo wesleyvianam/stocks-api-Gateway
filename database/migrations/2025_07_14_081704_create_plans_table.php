@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->integer('request_count')->default(0);
-            $table->decimal('amount', 8, 2);
+            $table->string('title');
+            $table->decimal('value', 8, 2);
+            $table->json('rules');
+            $table->json('description')->nullable();
+            $table->json('stripe')->nullable();
             $table->timestamps();
         });
     }

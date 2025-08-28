@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use App\Repositories\AuthRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
@@ -26,5 +27,18 @@ class AuthService
             'email' => $request->email,
             'password' => bcrypt($request->password),
         ]);
+    }
+
+    public function authenticate(Request $request)
+    {
+        $user = User::where('email', $request->email)->first();
+
+        if (! $user || ! Hash::check($request->password, $user->password)) {
+            return response()->json(['message' => 'Invalid credentials'], 401);
+        }
+
+        $token = $user->createToken('api_token')->plainTextToken;
+
+        return response()->json(['token' => $token]);
     }
 }

@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    public function setPlan(User $user, Request $request) {
+    public function setPlan(User $user, Request $request): mixed
+    {
         $user->update([
             'plan_id' => $request->get('plan_id') ?? null,
         ]);

@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -50,18 +51,8 @@ class User extends Authenticatable
         ];
     }
 
-    public function isFree(): bool
+    public function getPlan(): HasOne
     {
-        return $this->rules === 'free';
-    }
-
-    public function isAdmin(): bool
-    {
-        return $this->rules === 'admin';
-    }
-
-    public function isBasic()
-    {
-        return $this->rules === 'basic';
+        return $this->hasOne(Plan::class, 'id', 'plan_id');
     }
 }

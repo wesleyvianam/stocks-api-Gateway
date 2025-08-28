@@ -6,9 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Plan extends Model
 {
+    protected $casts = [
+        'rules' => 'array',
+    ];
+
     protected $fillable = [
-        'name',
-        'request_count',
-        'amount',
+        'title',
+        'value',
+        'rules',
+        'description',
+        'stripe',
     ];
 }
